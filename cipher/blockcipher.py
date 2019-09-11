@@ -138,6 +138,8 @@ class BlockCipher():
         # None if nothing happened with the chain yet
         #assert self.ed in ('e',None) 
         # makes sure you don't encrypt with a cipher that has started decrypting
+
+        assert isinstance(plaintext, str), "expected plaintext to be <class 'str'>, got: %s" % type(plaintext)
         self.ed = 'e'
         if self.mode == MODE_XTS:
             # data sequence number (or 'tweak') has to be provided when in XTS mode
@@ -315,7 +317,7 @@ class CFB:
         self.codebook = codebook
         self.IV = IV
         self.blocksize = blocksize
-        self.segment_size = segment_size/8
+        self.segment_size = segment_size // 8
         self.keystream = []
         self.totalbytes = 0
         
@@ -576,7 +578,7 @@ class CMAC:
         assert ed == 'e'
         blocksize = self.blocksize
 
-        m = (len(data)+blocksize-1)/blocksize #m = amount of datablocks
+        m = (len(data)+blocksize-1) // blocksize #m = amount of datablocks
         i=0
         for i in range(1,m):
             self.IV = self.codebook.encrypt( util.xorstring(data[(i-1)*blocksize:(i)*blocksize],self.IV) )

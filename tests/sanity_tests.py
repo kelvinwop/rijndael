@@ -27,3 +27,4 @@ class RijndaelEqualityTestCase(unittest.TestCase):
         rijndael_d = new(self.key, MODE_CBC, self.iv, blocksize=self.blocksize)
         decypted = rijndael_d.decrypt(encrypted)
         self.assertEqual(string, decypted)
+        
